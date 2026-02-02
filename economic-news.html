@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economic Context - News with Academic Perspective</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Spectral:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+      font-family: 'Spectral', Georgia, serif;
+      color: #e2e8f0;
+    }
+
+    .header {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 32px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand p {
+      margin-top: 4px;
+      font-size: 14px;
+      color: #94a3b8;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .fetch-btn {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .fetch-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .fetch-btn:disabled {
+      background: #475569;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .interests-box {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(100, 116, 139, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .interests-title {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 10px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    .interest-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .interest-tag {
+      padding: 6px 14px;
+      background: rgba(59, 130, 246, 0.15);
+      border-radius: 20px;
+      font-size: 13px;
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .main-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 32px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .view-tab {
+      padding: 12px 24px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      margin-bottom: -2px;
+    }
+
+    .view-tab:hover {
+      color: #cbd5e1;
+    }
+
+    .view-tab.active {
+      color: #60a5fa;
+      border-bottom-color: #60a5fa;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      background: rgba(100, 116, 139, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 10px;
+      color: #cbd5e1;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .filter-btn:hover {
+      background: rgba(100, 116, 139, 0.15);
+      border-color: rgba(148, 163, 184, 0.3);
+    }
+
+    .filter-btn.active {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      color: #60a5fa;
+    }
+
+    .saved-btn {
+      margin-left: auto;
+    }
+
+    .articles-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .article-card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .article-card:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .article-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      gap: 20px;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .topic-tag {
+      padding: 4px 12px;
+      background: rgba(59, 130, 246, 0.15);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .time-stamp, .source-name {
+      color: #94a3b8;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .article-title {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #f1f5f9;
+      margin-bottom: 16px;
+    }
+
+    .article-summary {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      background: rgba(100, 116, 139, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover {
+      background: rgba(100, 116, 139, 0.2);
+    }
+
+    .action-btn.active-like {
+      background: rgba(251, 146, 60, 0.2);
+      border-color: rgba(251, 146, 60, 0.5);
+    }
+
+    .action-btn.active-save {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    .key-points {
+      margin: 20px 0;
+      padding: 16px 20px;
+      background: rgba(51, 65, 85, 0.4);
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .key-points-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-bottom: 10px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .key-points ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .key-points li {
+      font-size: 14px;
+      color: #cbd5e1;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .expand-btn {
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 10px;
+      padding: 12px 16px;
+      width: 100%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #c4b5fd;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      margin-top: 20px;
+    }
+
+    .expand-btn:hover {
+      background: rgba(139, 92, 246, 0.15);
+    }
+
+    .context-box {
+      margin-top: 16px;
+      padding: 20px;
+      background: rgba(51, 65, 85, 0.4);
+      border-radius: 10px;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      display: none;
+    }
+
+    .context-box.expanded {
+      display: block;
+    }
+
+    .context-section {
+      margin-bottom: 20px;
+    }
+
+    .context-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .context-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .context-title.academic {
+      color: #c4b5fd;
+    }
+
+    .context-title.historical {
+      color: #fbbf24;
+    }
+
+    .context-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .speaker-badge {
+      padding: 4px 12px;
+      background: rgba(139, 92, 246, 0.15);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #c4b5fd;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .speech-excerpt {
+      margin: 20px 0;
+      padding: 20px;
+      background: rgba(51, 65, 85, 0.3);
+      border-left: 3px solid rgba(139, 92, 246, 0.5);
+      border-radius: 8px;
+      font-style: italic;
+      color: #cbd5e1;
+      font-family: 'Spectral', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .podcast-badge {
+      padding: 4px 12px;
+      background: rgba(34, 197, 94, 0.15);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #86efac;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .duration-badge {
+      padding: 4px 10px;
+      background: rgba(100, 116, 139, 0.2);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #cbd5e1;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .guest-info {
+      margin: 16px 0;
+      padding: 16px 20px;
+      background: rgba(51, 65, 85, 0.3);
+      border-radius: 10px;
+      border-left: 3px solid rgba(34, 197, 94, 0.5);
+    }
+
+    .guest-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #86efac;
+      margin-bottom: 4px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .guest-title {
+      font-size: 13px;
+      color: #94a3b8;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .read-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      color: #60a5fa;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.2s ease;
+    }
+
+    .read-link:hover {
+      color: #93c5fd;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: #64748b;
+    }
+
+    .empty-state h3 {
+      margin: 20px 0 12px 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .empty-state p {
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .spinning {
+      animation: spin 1s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-content">
+      <div class="header-top">
+        <div class="brand">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+          </svg>
+          <div>
+            <h1>Economic Context</h1>
+            <p>News enriched with academic research and historical perspective</p>
+          </div>
+        </div>
+        
+        <button class="fetch-btn" id="fetchBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          Fetch Latest News
+        </button>
+      </div>
+
+      <div id="interestsBox" class="interests-box hidden">
+        <div class="interests-title">YOUR TOP INTERESTS</div>
+        <div class="interest-tags" id="interestTags"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div style="margin-bottom: 20px;">
+      <div style="display: flex; gap: 12px; margin-bottom: 16px; border-bottom: 2px solid rgba(148, 163, 184, 0.1); flex-wrap: wrap;">
+        <button class="view-tab active" data-view="articles">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          News Articles
+        </button>
+        <button class="view-tab" data-view="speeches">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="22"></line>
+          </svg>
+          Policy Principles
+        </button>
+        <button class="view-tab" data-view="podcasts">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 6px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 16v5"></path>
+          </svg>
+          Podcasts
+        </button>
+      </div>
+
+      <div class="filters" id="articlesFilters">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+        </svg>
+        <button class="filter-btn active" data-topic="all">All Topics</button>
+        <button class="filter-btn" data-topic="Monetary Policy">Monetary Policy</button>
+        <button class="filter-btn" data-topic="Trade">Trade</button>
+        <button class="filter-btn" data-topic="Markets">Markets</button>
+        <button class="filter-btn" data-topic="Labor">Labor</button>
+        <button class="filter-btn" data-topic="Fiscal Policy">Fiscal Policy</button>
+        <button class="filter-btn" data-topic="Development">Development</button>
+        <button class="filter-btn" data-topic="Regulation">Regulation</button>
+        
+        <button class="filter-btn saved-btn" id="savedBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+            <path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z"></path>
+            <path d="m9 10 2 2 4-4"></path>
+          </svg>
+          Saved (<span id="savedCount">0</span>)
+        </button>
+      </div>
+
+      <div class="filters hidden" id="speechesFilters">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+        </svg>
+        <button class="filter-btn active" data-speaker="all">All Speakers</button>
+        <button class="filter-btn" data-speaker="Federal Reserve">Federal Reserve</button>
+        <button class="filter-btn" data-speaker="Treasury Department">Treasury Department</button>
+        <button class="filter-btn" data-speaker="House Financial Services">House Financial Services</button>
+        <button class="filter-btn" data-speaker="Senate Banking">Senate Banking</button>
+        
+        <button class="filter-btn saved-btn" id="savedSpeechesBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+            <path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z"></path>
+            <path d="m9 10 2 2 4-4"></path>
+          </svg>
+          Saved (<span id="savedSpeechesCount">0</span>)
+        </button>
+      </div>
+
+      <div class="filters hidden" id="podcastsFilters">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+        </svg>
+        <button class="filter-btn active" data-podcast="all">All Podcasts</button>
+        <button class="filter-btn" data-podcast="Interviews">Policymaker Interviews</button>
+        <button class="filter-btn" data-podcast="Academic">Academic Discussions</button>
+        <button class="filter-btn" data-podcast="Political">Political Analysis</button>
+        
+        <button class="filter-btn saved-btn" id="savedPodcastsBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+            <path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z"></path>
+            <path d="m9 10 2 2 4-4"></path>
+          </svg>
+          Saved (<span id="savedPodcastsCount">0</span>)
+        </button>
+      </div>
+    </div>
+
+    <div id="articlesContainer" class="articles-grid">
+      <div class="empty-state">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5" style="margin: 0 auto 20px;">
+          <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path>
+          <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path>
+        </svg>
+        <h3>No articles loaded</h3>
+        <p>Click "Fetch Latest News" to load economic news with academic context</p>
+      </div>
+    </div>
+
+    <div id="speechesContainer" class="articles-grid hidden">
+      <div class="empty-state">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5" style="margin: 0 auto 20px;">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+          <line x1="12" y1="19" x2="12" y2="22"></line>
+        </svg>
+        <h3>No speeches loaded</h3>
+        <p>Click "Fetch Latest News" to load recent speeches from policymakers</p>
+      </div>
+    </div>
+
+    <div id="podcastsContainer" class="articles-grid hidden">
+      <div class="empty-state">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5" style="margin: 0 auto 20px;">
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M12 16v5"></path>
+        </svg>
+        <h3>No podcasts loaded</h3>
+        <p>Click "Fetch Latest News" to load recent podcast episodes</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // App state
+    let articles = [];
+    let speeches = [];
+    let podcasts = [];
+    let savedArticles = [];
+    let savedSpeeches = [];
+    let savedPodcasts = [];
+    let likedArticles = [];
+    let likedSpeeches = [];
+    let likedPodcasts = [];
+    let userInterests = {};
+    let selectedTopic = 'all';
+    let selectedSpeaker = 'all';
+    let selectedPodcastType = 'all';
+    let showSavedOnly = false;
+    let showSavedSpeechesOnly = false;
+    let showSavedPodcastsOnly = false;
+    let currentView = 'articles';
+
+    // Load data from localStorage
+    function loadData() {
+      const saved = localStorage.getItem('savedArticles');
+      const liked = localStorage.getItem('likedArticles');
+      const interests = localStorage.getItem('userInterests');
+      const savedSpch = localStorage.getItem('savedSpeeches');
+      const likedSpch = localStorage.getItem('likedSpeeches');
+      const savedPod = localStorage.getItem('savedPodcasts');
+      const likedPod = localStorage.getItem('likedPodcasts');
+      
+      if (saved) savedArticles = JSON.parse(saved);
+      if (liked) likedArticles = JSON.parse(liked);
+      if (interests) userInterests = JSON.parse(interests);
+      if (savedSpch) savedSpeeches = JSON.parse(savedSpch);
+      if (likedSpch) likedSpeeches = JSON.parse(likedSpch);
+      if (savedPod) savedPodcasts = JSON.parse(savedPod);
+      if (likedPod) likedPodcasts = JSON.parse(likedPod);
+      
+      updateSavedCount();
+      updateInterests();
+    }
+
+    // Save data to localStorage
+    function saveData() {
+      localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
+      localStorage.setItem('likedArticles', JSON.stringify(likedArticles));
+      localStorage.setItem('userInterests', JSON.stringify(userInterests));
+      localStorage.setItem('savedSpeeches', JSON.stringify(savedSpeeches));
+      localStorage.setItem('likedSpeeches', JSON.stringify(likedSpeeches));
+      localStorage.setItem('savedPodcasts', JSON.stringify(savedPodcasts));
+      localStorage.setItem('likedPodcasts', JSON.stringify(likedPodcasts));
+    }
+
+    // Generate demo articles
+    function generateArticles() {
+      return [
+        {
+          id: "1",
+          headline: "Federal Reserve Signals Potential Rate Cuts Amid Cooling Inflation",
+          source: "Wall Street Journal",
+          url: "https://wsj.com/economics/fed-rate-cuts",
+          summary: "Fed Chair Jerome Powell indicated the central bank may begin reducing interest rates in Q2 2026 as inflation approaches the 2% target. Markets rallied on the news, with the S&P 500 gaining 2.1%.",
+          academicContext: "This aligns with Taylor Rule principles, which suggest policy rates should adjust based on inflation gaps and output gaps. Academic research by Clarida, Galí, and Gertler (1999) demonstrates that forward-looking monetary policy enhances economic stability.",
+          historicalParallel: "Similar to the 1995 'soft landing' when Greenspan successfully reduced rates after tightening, avoiding recession.",
+          topic: "Monetary Policy",
+          publishedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+          keyPoints: ["Rate cuts expected by Q2 2026", "Inflation trending toward 2% target", "Markets respond positively"]
+        },
+        {
+          id: "2",
+          headline: "U.S.-China Trade Relations Thaw as New Framework Agreement Reached",
+          source: "Financial Times",
+          url: "https://ft.com/trade/us-china-framework",
+          summary: "Washington and Beijing announced a preliminary trade agreement reducing tariffs on technology goods and agricultural products. The deal includes provisions for intellectual property protection and dispute resolution.",
+          academicContext: "Trade liberalization theory, rooted in Ricardo's comparative advantage, suggests mutual gains from specialization. Grossman and Helpman's research on endogenous growth shows trade can accelerate innovation through knowledge spillovers.",
+          historicalParallel: "Echoes the 1985 Plaza Accord, where major economies coordinated to rebalance trade relationships.",
+          topic: "Trade",
+          publishedAt: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
+          keyPoints: ["Tariff reductions on tech and agriculture", "IP protection framework", "Dispute resolution mechanism"]
+        },
+        {
+          id: "3",
+          headline: "Tech Stocks Surge on AI Investment Optimism",
+          source: "Bloomberg",
+          url: "https://bloomberg.com/markets/tech-rally",
+          summary: "Major technology indices hit record highs as companies announce expanded AI infrastructure investments. Microsoft, Google, and Amazon collectively pledged $500 billion in AI development over the next three years.",
+          academicContext: "Aligns with Solow's growth model, where technological progress drives long-term productivity gains. Recent work by Brynjolfsson and McAfee emphasizes AI's potential for labor-augmenting technical change.",
+          historicalParallel: "Comparable to the late 1990s internet investment boom, though with more sustainable business models.",
+          topic: "Markets",
+          publishedAt: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(),
+          keyPoints: ["$500B AI investment commitment", "Record tech index highs", "Focus on infrastructure scaling"]
+        },
+        {
+          id: "4",
+          headline: "Labor Market Shows Resilience with Unexpected Job Growth",
+          source: "Reuters",
+          url: "https://reuters.com/labor/jobs-report",
+          summary: "January jobs report exceeded expectations with 280,000 new positions created. Unemployment held steady at 3.9%, while wage growth accelerated to 4.2% year-over-year.",
+          academicContext: "Phillips curve dynamics suggest tight labor markets typically drive wage inflation. However, recent research by Ball and Mazumder documents a flattening relationship, indicating supply-side improvements in labor mobility.",
+          historicalParallel: "Similar to mid-2019 conditions when strong employment coexisted with moderate inflation.",
+          topic: "Labor",
+          publishedAt: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(),
+          keyPoints: ["280,000 jobs added", "3.9% unemployment rate", "4.2% wage growth annually"]
+        },
+        {
+          id: "5",
+          headline: "European Union Announces €200 Billion Green Infrastructure Initiative",
+          source: "The Economist",
+          url: "https://economist.com/europe/green-initiative",
+          summary: "EU member states agreed to a comprehensive green infrastructure package focusing on renewable energy, high-speed rail, and sustainable manufacturing. The initiative aims to achieve carbon neutrality by 2040.",
+          academicContext: "Keynesian multiplier effects suggest public infrastructure investment generates broader economic stimulus. Stern Review economics demonstrates that early climate action costs less than delayed responses.",
+          historicalParallel: "Scale comparable to the Marshall Plan's post-WWII European reconstruction, adjusted for inflation.",
+          topic: "Fiscal Policy",
+          publishedAt: new Date(Date.now() - 15 * 60 * 60 * 1000).toISOString(),
+          keyPoints: ["€200B investment package", "Focus on renewable energy and rail", "2040 carbon neutrality target"]
+        },
+        {
+          id: "6",
+          headline: "Emerging Markets Rally on IMF Growth Forecast Upgrade",
+          source: "CNBC",
+          url: "https://cnbc.com/emerging-markets/imf-forecast",
+          summary: "The IMF raised growth projections for developing economies by 0.8 percentage points to 5.2% for 2026. India, Indonesia, and Brazil lead the upward revisions on strong domestic demand and commodity exports.",
+          academicContext: "Consistent with convergence theory (Barro and Sala-i-Martin), suggesting developing nations can grow faster than advanced economies. Rodrik's research emphasizes the role of structural transformation and industrial policy.",
+          historicalParallel: "Reminiscent of East Asian Tigers' growth acceleration in the 1980s and 1990s.",
+          topic: "Development",
+          publishedAt: new Date(Date.now() - 18 * 60 * 60 * 1000).toISOString(),
+          keyPoints: ["5.2% growth forecast for 2026", "India, Indonesia, Brazil leading", "Strong commodity export demand"]
+        },
+        {
+          id: "7",
+          headline: "SEC Proposes Enhanced Disclosure Requirements for Private Equity",
+          source: "Financial Times",
+          url: "https://ft.com/regulation/sec-private-equity",
+          summary: "The Securities and Exchange Commission unveiled proposals requiring private equity firms to provide detailed fee structures and performance metrics to investors. Industry groups warn of compliance costs.",
+          academicContext: "Information asymmetry theory (Akerlof, 1970) shows markets function better with transparency. Regulatory economics literature by Stigler emphasizes balancing disclosure benefits against compliance burdens.",
+          historicalParallel: "Similar to Dodd-Frank's enhanced disclosure requirements following the 2008 financial crisis.",
+          topic: "Regulation",
+          publishedAt: new Date(Date.now() - 20 * 60 * 60 * 1000).toISOString(),
+          keyPoints: ["Enhanced fee disclosure requirements", "Performance metric reporting", "Industry concerns over compliance costs"]
+        },
+        {
+          id: "8",
+          headline: "Housing Market Cools as Mortgage Rates Stabilize Above 6%",
+          source: "Wall Street Journal",
+          url: "https://wsj.com/real-estate/housing-market",
+          summary: "Home sales declined 12% month-over-month as potential buyers adjust to elevated borrowing costs. However, housing inventory improved with new listings up 15%, providing more options for buyers.",
+          academicContext: "Housing economics (Case-Shiller model) shows interest rate sensitivity in durable goods markets. DiPasquale-Wheaton framework explains how supply adjustments eventually moderate price pressures.",
+          historicalParallel: "Mirrors 2006-2007 market cooling, though current fundamentals appear stronger with lower leverage.",
+          topic: "Markets",
+          publishedAt: new Date(Date.now() - 22 * 60 * 60 * 1000).toISOString(),
+          keyPoints: ["12% decline in home sales", "Mortgage rates above 6%", "15% increase in new listings"]
+        }
+      ];
+    }
+
+    // Generate demo speeches
+    function generateSpeeches() {
+      return [
+        {
+          id: "sp1",
+          title: "Monetary Policy in an Era of Elevated Uncertainty",
+          speaker: "Federal Reserve",
+          speakerName: "Jerome H. Powell, Chair",
+          venue: "Economic Club of New York",
+          date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+          summary: "Chair Powell discussed the Federal Reserve's approach to monetary policy amid ongoing economic uncertainty, emphasizing the importance of data dependency and the dual mandate of maximum employment and price stability.",
+          excerpt: "We remain committed to bringing inflation back down to our 2 percent goal. The path forward is likely to be bumpy, and it will take time. But we will stay the course.",
+          keyTopics: ["Inflation targeting", "Labor market conditions", "Forward guidance"],
+          academicContext: "Powell's remarks reflect the Taylor Rule framework, which prescribes systematic interest rate adjustments based on deviations from inflation and output targets. Recent academic work by Clarida, Galí, and Gertler emphasizes the benefits of transparent, rule-based monetary policy in anchoring expectations.",
+          url: "https://federalreserve.gov/speeches"
+        },
+        {
+          id: "sp2",
+          title: "The Treasury's Role in Economic Security and Competitiveness",
+          speaker: "Treasury Department",
+          speakerName: "Janet L. Yellen, Secretary",
+          venue: "Peterson Institute for International Economics",
+          date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+          summary: "Secretary Yellen outlined the Treasury Department's strategic priorities for enhancing U.S. economic security, including strengthening supply chains, advancing financial sanctions effectiveness, and promoting sustainable finance.",
+          excerpt: "Economic security is national security. We must work with allies to build resilient supply chains and counter economic coercion while maintaining open, rules-based trade.",
+          keyTopics: ["Economic security", "Supply chain resilience", "Sanctions policy"],
+          academicContext: "Yellen's focus on economic security aligns with recent scholarship on geoeconomics and the weaponization of interdependence. Farrell and Newman's research demonstrates how network position in global finance creates asymmetric power dynamics that can be leveraged for strategic purposes.",
+          url: "https://treasury.gov/press-center/speeches"
+        },
+        {
+          id: "sp3",
+          title: "Examining Stablecoin Risks and Regulatory Frameworks",
+          speaker: "House Financial Services",
+          speakerName: "Rep. Patrick McHenry, Chairman",
+          venue: "House Financial Services Committee Hearing",
+          date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+          summary: "Chairman McHenry opened hearings on stablecoin regulation, emphasizing the need for clear regulatory frameworks that protect consumers while fostering innovation in digital assets.",
+          excerpt: "America must lead in digital asset innovation. We need a regulatory framework that provides clarity for innovators while ensuring robust consumer protections and financial stability.",
+          keyTopics: ["Stablecoin regulation", "Consumer protection", "Financial innovation"],
+          academicContext: "The debate over stablecoin regulation involves balancing innovation incentives with systemic risk concerns. Gorton and Zhang's research on stablecoins as private money highlights parallels to 19th century free banking, suggesting that reserve requirements and transparency mandates could mitigate run risks.",
+          url: "https://financialservices.house.gov/news"
+        },
+        {
+          id: "sp4",
+          title: "Addressing Climate-Related Financial Risks in Banking Supervision",
+          speaker: "Federal Reserve",
+          speakerName: "Michael S. Barr, Vice Chair for Supervision",
+          venue: "Federal Reserve Bank of San Francisco",
+          date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+          summary: "Vice Chair Barr discussed the Federal Reserve's approach to incorporating climate-related financial risks into its supervisory framework, emphasizing risk management rather than credit allocation.",
+          excerpt: "Climate change poses risks to the financial system. Our role is to ensure banks understand and manage these risks appropriately, not to direct credit or set climate policy.",
+          keyTopics: ["Climate risk supervision", "Scenario analysis", "Risk management"],
+          academicContext: "Climate financial risk assessment builds on stress testing methodologies developed after the 2008 crisis. Battiston et al.'s work on climate stress tests demonstrates how transition risks can propagate through financial networks, justifying supervisory attention to climate exposures.",
+          url: "https://federalreserve.gov/speeches"
+        },
+        {
+          id: "sp5",
+          title: "Modernizing International Tax Rules for the Digital Economy",
+          speaker: "Treasury Department",
+          speakerName: "Wally Adeyemo, Deputy Secretary",
+          venue: "OECD Tax Conference",
+          date: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).toISOString(),
+          summary: "Deputy Secretary Adeyemo addressed international efforts to reform global tax rules, focusing on the implementation of the OECD's two-pillar solution for taxing multinational enterprises in the digital economy.",
+          excerpt: "The digital economy demands 21st century tax rules. The two-pillar solution ensures that profitable multinationals pay their fair share wherever they operate.",
+          keyTopics: ["International taxation", "Digital economy", "OECD framework"],
+          academicContext: "Digital taxation reform addresses profit shifting documented by Zucman and colleagues. The OECD framework aims to reallocate taxing rights based on market jurisdiction rather than physical presence, reflecting principles from optimal tax theory on taxing location-specific rents.",
+          url: "https://treasury.gov/press-center/speeches"
+        },
+        {
+          id: "sp6",
+          title: "Banking Supervision and the Lessons from Recent Bank Failures",
+          speaker: "Senate Banking",
+          speakerName: "Sen. Sherrod Brown, Chairman",
+          venue: "Senate Banking Committee Hearing",
+          date: new Date(Date.now() - 11 * 24 * 60 * 60 * 1000).toISOString(),
+          summary: "Chairman Brown convened hearings examining regulatory failures that contributed to recent bank collapses, focusing on supervision intensity, interest rate risk management, and the adequacy of capital requirements.",
+          excerpt: "These bank failures were preventable. We must ensure regulators have the tools and willingness to act before problems become crises that threaten the broader financial system.",
+          keyTopics: ["Bank supervision", "Interest rate risk", "Capital requirements"],
+          academicContext: "Recent bank failures highlight classic maturity mismatch problems analyzed in Diamond-Dybvig banking theory. The rapid deposit withdrawals via digital banking amplify run risks, as demonstrated in Duffie's work on digital bank runs, suggesting updated liquidity requirements may be necessary.",
+          url: "https://banking.senate.gov/newsroom"
+        },
+        {
+          id: "sp7",
+          title: "The Federal Reserve's Balance Sheet and Monetary Policy Implementation",
+          speaker: "Federal Reserve",
+          speakerName: "Lorie K. Logan, President, Dallas Fed",
+          venue: "Money Marketeers of New York University",
+          date: new Date(Date.now() - 13 * 24 * 60 * 60 * 1000).toISOString(),
+          summary: "President Logan provided insights on the Federal Reserve's balance sheet normalization and its implications for monetary policy implementation in an ample reserves framework.",
+          excerpt: "As we continue balance sheet runoff, we must carefully assess reserve demand to ensure ample reserves remain available to support effective monetary policy implementation.",
+          keyTopics: ["Balance sheet policy", "Reserve management", "Monetary policy implementation"],
+          academicContext: "The shift to an ample reserves framework represents a fundamental change in monetary policy implementation. Afonso and Lagos's research on the demand for reserves informs the Fed's assessment of adequate reserve levels, while Carpenter et al. analyze how balance sheet composition affects financial conditions.",
+          url: "https://dallasfed.org/news/speeches"
+        },
+        {
+          id: "sp8",
+          title: "Housing Affordability and the American Dream",
+          speaker: "House Financial Services",
+          speakerName: "Rep. Maxine Waters, Ranking Member",
+          venue: "House Financial Services Committee Hearing",
+          date: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(),
+          summary: "Ranking Member Waters addressed the housing affordability crisis, advocating for increased funding for affordable housing programs and reforms to GSE lending standards to expand homeownership opportunities.",
+          excerpt: "The dream of homeownership is slipping away for too many Americans. We must expand access to affordable housing and ensure our financial system works for working families.",
+          keyTopics: ["Housing affordability", "GSE reform", "Community development"],
+          academicContext: "Housing affordability challenges reflect both supply constraints and demand-side factors. Glaeser and Gyourko's research identifies zoning restrictions as primary drivers of housing undersupply in high-demand markets, while Mian and Sufi's work documents how credit availability affects housing demand and prices.",
+          url: "https://financialservices.house.gov/news"
+        },
+        {
+          id: "sp9",
+          title: "Central Bank Digital Currencies: Opportunities and Risks",
+          speaker: "Federal Reserve",
+          speakerName: "Christopher Waller, Governor",
+          venue: "American Enterprise Institute",
+          date: new Date(Date.now() - 17 * 24 * 60 * 60 * 1000).toISOString(),
+          summary: "Governor Waller outlined his perspective on central bank digital currencies, expressing skepticism about the need for a U.S. CBDC while acknowledging the importance of continued research.",
+          excerpt: "I remain unconvinced that a CBDC would solve any major problem facing the U.S. payment system. We must carefully weigh potential benefits against significant risks to financial stability and privacy.",
+          keyTopics: ["Digital currency", "Payment systems", "Financial privacy"],
+          academicContext: "The CBDC debate involves tradeoffs between payment system efficiency and financial stability risks. Brunnermeier and Niepelt's research on digital currency design highlights how CBDC could affect bank disintermediation and monetary policy transmission, while Auer et al. analyze cross-border payment improvements.",
+          url: "https://federalreserve.gov/speeches"
+        },
+        {
+          id: "sp10",
+          title: "Addressing Systemic Risk in Non-Bank Financial Intermediation",
+          speaker: "Senate Banking",
+          speakerName: "Sen. Elizabeth Warren",
+          venue: "Senate Banking Committee Hearing",
+          date: new Date(Date.now() - 19 * 24 * 60 * 60 * 1000).toISOString(),
+          summary: "Senator Warren raised concerns about systemic risks in the shadow banking sector, calling for enhanced oversight of private equity, hedge funds, and other non-bank financial institutions.",
+          excerpt: "The financial system has evolved, but our regulatory framework hasn't kept pace. Shadow banking poses systemic risks that demand stronger oversight and transparency requirements.",
+          keyTopics: ["Shadow banking", "Systemic risk", "Regulatory gaps"],
+          academicContext: "Concerns about non-bank financial intermediation build on Pozsar et al.'s analysis of shadow banking's role in the 2008 crisis. Recent work by the Financial Stability Board documents continued growth in non-bank lending and potential vulnerabilities from liquidity mismatches and leverage in asset management.",
+          url: "https://banking.senate.gov/newsroom"
+        }
+      ];
+    }
+
+    // Generate demo podcasts
+    function generatePodcasts() {
+      return [
+        {
+          id: "pod1",
+          title: "The Future of Central Banking with Jerome Powell",
+          show: "Odd Lots",
+          hosts: "Joe Weisenthal & Tracy Alloway",
+          guest: "Jerome H. Powell",
+          guestTitle: "Federal Reserve Chair",
+          category: "Interviews",
+          duration: "52 min",
+          date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+          description: "Fed Chair Jerome Powell joins Bloomberg's Odd Lots to discuss the evolution of monetary policy frameworks, lessons from the pandemic era, and how the Fed is thinking about inflation targeting in a changing economy.",
+          keyTopics: ["Monetary policy frameworks", "Inflation dynamics", "Labor market evolution"],
+          academicContext: "The conversation touches on modern monetary theory critiques and neo-Fisherian perspectives on interest rates. Powell's defense of the 2% inflation target aligns with Bernanke and Mishkin's research on the benefits of explicit inflation targeting for anchoring expectations.",
+          url: "https://bloomberg.com/oddlots"
+        },
+        {
+          id: "pod2",
+          title: "Trade Wars and Economic Security",
+          show: "The Ezra Klein Show",
+          hosts: "Ezra Klein",
+          guest: "Katherine Tai",
+          guestTitle: "U.S. Trade Representative",
+          category: "Political",
+          duration: "68 min",
+          date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
+          description: "U.S. Trade Representative Katherine Tai discusses the Biden administration's approach to trade policy, the evolution beyond free trade orthodoxy, and how economic security shapes modern trade agreements.",
+          keyTopics: ["Industrial policy", "Supply chain resilience", "Worker-centered trade"],
+          academicContext: "Tai's emphasis on worker-centered trade reflects Autor, Dorn, and Hanson's research on trade adjustment costs and the 'China shock.' The shift toward industrial policy aligns with Rodrik's arguments for strategic trade intervention.",
+          url: "https://nytimes.com/ezra-klein"
+        },
+        {
+          id: "pod3",
+          title: "Understanding Modern Inflation with Larry Summers",
+          show: "Macro Musings",
+          hosts: "David Beckworth",
+          guest: "Lawrence H. Summers",
+          guestTitle: "Former Treasury Secretary, Harvard Professor",
+          category: "Academic",
+          duration: "75 min",
+          date: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(),
+          description: "Former Treasury Secretary and Harvard economist Larry Summers provides deep analysis of post-pandemic inflation, fiscal policy debates, and the political economy of macroeconomic management.",
+          keyTopics: ["Inflation drivers", "Fiscal sustainability", "Secular stagnation"],
+          academicContext: "Summers discusses his prescient warnings about overheating and draws on his secular stagnation hypothesis. The conversation engages with Blanchard and Summers' work on hysteresis and Ball's research on inflation persistence.",
+          url: "https://mercatus.org/macro-musings"
+        },
+        {
+          id: "pod4",
+          title: "Financial Regulation After SVB",
+          show: "Capitalisn't",
+          hosts: "Bethany McLean & Luigi Zingales",
+          guest: "Lael Brainard",
+          guestTitle: "National Economic Council Director",
+          category: "Interviews",
+          duration: "58 min",
+          date: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
+          description: "White House economic advisor Lael Brainard discusses regulatory lessons from Silicon Valley Bank's failure, the debate over bank capital requirements, and the intersection of financial stability and economic growth.",
+          keyTopics: ["Bank regulation", "Systemic risk", "Capital requirements"],
+          academicContext: "The discussion engages with Admati and Hellwig's arguments for significantly higher capital requirements and the empirical debate over whether stricter bank regulation constrains credit supply.",
+          url: "https://capitalisnt.com"
+        },
+        {
+          id: "pod5",
+          title: "The Economics of Climate Policy",
+          show: "The Weeds",
+          hosts: "Jerusalem Demsas",
+          guest: "Janet L. Yellen",
+          guestTitle: "Treasury Secretary",
+          category: "Interviews",
+          duration: "45 min",
+          date: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+          description: "Treasury Secretary Janet Yellen explains the economic rationale behind the Inflation Reduction Act, carbon border adjustments, and the challenges of coordinating international climate finance.",
+          keyTopics: ["Carbon pricing", "Green subsidies", "Climate finance"],
+          academicContext: "Yellen's defense of industrial policy for clean energy departs from traditional Pigouvian tax approaches. The conversation references Nordhaus's integrated assessment models and Stern Review cost-benefit analyses.",
+          url: "https://vox.com/the-weeds"
+        },
+        {
+          id: "pod6",
+          title: "Rethinking Macroeconomics with Olivier Blanchard",
+          show: "Conversations with Tyler",
+          hosts: "Tyler Cowen",
+          guest: "Olivier Blanchard",
+          guestTitle: "MIT Professor Emeritus, Former IMF Chief Economist",
+          category: "Academic",
+          duration: "82 min",
+          date: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(),
+          description: "Olivier Blanchard, one of the world's leading macroeconomists, discusses how the field needs to evolve, the interaction between monetary and fiscal policy, and whether high debt levels constrain policy options.",
+          keyTopics: ["DSGE models", "r vs g", "Fiscal space"],
+          academicContext: "Blanchard presents his influential work showing that when interest rates are below growth rates (r < g), debt sustainability constraints are less binding than traditionally thought.",
+          url: "https://conversationswithtyler.com"
+        },
+        {
+          id: "pod7",
+          title: "Housing Policy and the American Dream",
+          show: "The Weeds",
+          hosts: "Jerusalem Demsas",
+          guest: "Rep. Maxine Waters",
+          guestTitle: "House Financial Services Committee Ranking Member",
+          category: "Political",
+          duration: "48 min",
+          date: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
+          description: "Congresswoman Maxine Waters discusses the housing affordability crisis, GSE reform proposals, and the role of federal policy in expanding homeownership opportunities.",
+          keyTopics: ["Housing affordability", "GSE reform", "Racial wealth gap"],
+          academicContext: "Waters references research on the persistent effects of redlining and segregation on the racial wealth gap, and engages with Glaeser and Gyourko's work on zoning as a supply constraint.",
+          url: "https://vox.com/the-weeds"
+        },
+        {
+          id: "pod8",
+          title: "The New Industrial Policy with Brian Deese",
+          show: "Odd Lots",
+          hosts: "Joe Weisenthal & Tracy Alloway",
+          guest: "Brian Deese",
+          guestTitle: "Former National Economic Council Director",
+          category: "Interviews",
+          duration: "70 min",
+          date: new Date(Date.now() - 16 * 24 * 60 * 60 * 1000).toISOString(),
+          description: "Former White House economic advisor Brian Deese explains the intellectual foundations of the Biden administration's industrial policy, including the CHIPS Act and Inflation Reduction Act.",
+          keyTopics: ["Industrial policy", "Semiconductors", "Manufacturing"],
+          academicContext: "Deese's framework draws on market failure justifications from economics (network externalities, learning-by-doing spillovers) while incorporating strategic competition concerns.",
+          url: "https://bloomberg.com/oddlots"
+        }
+      ];
+    }
+
+    // Format timestamp
+    function formatTime(timestamp) {
+      const date = new Date(timestamp);
+      const now = new Date();
+      const diffHours = Math.floor((now - date) / (1000 * 60 * 60));
+      
+      if (diffHours < 1) return 'Just now';
+      if (diffHours < 24) return `${diffHours}h ago`;
+      return `${Math.floor(diffHours / 24)}d ago`;
+    }
+
+    // Render articles
+    function renderArticles() {
+      const container = document.getElementById('articlesContainer');
+      
+      let filtered = articles.filter(article => {
+        if (showSavedOnly && !savedArticles.includes(article.id)) return false;
+        if (selectedTopic === 'all') return true;
+        return article.topic === selectedTopic;
+      });
+
+      // Sort by relevance
+      filtered.sort((a, b) => {
+        const aScore = (userInterests[a.topic] || 0) + (likedArticles.includes(a.id) ? 10 : 0);
+        const bScore = (userInterests[b.topic] || 0) + (likedArticles.includes(b.id) ? 10 : 0);
+        return bScore - aScore;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5" style="margin: 0 auto 20px;">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path>
+              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path>
+            </svg>
+            <h3>${showSavedOnly ? 'No saved articles yet' : 'No articles found'}</h3>
+            <p>${showSavedOnly ? 'Save articles you find interesting to build your personalized feed' : 'Try selecting a different topic or fetch new articles'}</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(article => `
+        <div class="article-card">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="topic-tag">${article.topic}</span>
+                <span class="time-stamp">${formatTime(article.publishedAt)}</span>
+                <span class="source-name">${article.source}</span>
+              </div>
+              
+              <h2 class="article-title">${article.headline}</h2>
+              
+              <p class="article-summary">${article.summary}</p>
+            </div>
+            
+            <div class="action-buttons">
+              <button class="action-btn ${likedArticles.includes(article.id) ? 'active-like' : ''}" 
+                      onclick="toggleLike('${article.id}', '${article.topic}')" title="Like this article">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="${likedArticles.includes(article.id) ? '#fb923c' : 'none'}" stroke="${likedArticles.includes(article.id) ? '#fb923c' : '#94a3b8'}" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </button>
+              
+              <button class="action-btn ${savedArticles.includes(article.id) ? 'active-save' : ''}" 
+                      onclick="toggleSave('${article.id}')" title="Save for later">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${savedArticles.includes(article.id) ? '#60a5fa' : '#94a3b8'}" stroke-width="2">
+                  <path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                  ${savedArticles.includes(article.id) ? '<path d="m9 10 2 2 4-4"></path>' : '<line x1="12" y1="7" x2="12" y2="13"></line><line x1="9" y1="10" x2="15" y2="10"></line>'}
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="key-points">
+            <div class="key-points-title">KEY TAKEAWAYS</div>
+            <ul>
+              ${article.keyPoints.map(point => `<li>${point}</li>`).join('')}
+            </ul>
+          </div>
+
+          <button class="expand-btn" onclick="toggleExpand('${article.id}')">
+            <span>Academic Context & Historical Perspective</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron-${article.id}">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          
+          <div class="context-box" id="context-${article.id}">
+            <div class="context-section">
+              <div class="context-title academic">ACADEMIC CONTEXT</div>
+              <p class="context-text">${article.academicContext}</p>
+            </div>
+            
+            <div class="context-section">
+              <div class="context-title historical">HISTORICAL PARALLEL</div>
+              <p class="context-text">${article.historicalParallel}</p>
+            </div>
+          </div>
+
+          <a href="${article.url}" target="_blank" rel="noopener noreferrer" class="read-link">
+            Read full article
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      `).join('');
+    }
+
+    // Render speeches
+    function renderSpeeches() {
+      const container = document.getElementById('speechesContainer');
+      
+      let filtered = speeches.filter(speech => {
+        if (showSavedSpeechesOnly && !savedSpeeches.includes(speech.id)) return false;
+        if (selectedSpeaker === 'all') return true;
+        return speech.speaker === selectedSpeaker;
+      });
+
+      // Sort by date (most recent first)
+      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5" style="margin: 0 auto 20px;">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="22"></line>
+            </svg>
+            <h3>${showSavedSpeechesOnly ? 'No saved speeches yet' : 'No speeches found'}</h3>
+            <p>${showSavedSpeechesOnly ? 'Save speeches you find interesting for easy reference' : 'Try selecting a different speaker or fetch new content'}</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(speech => `
+        <div class="article-card">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="speaker-badge">${speech.speaker}</span>
+                <span class="time-stamp">${formatTime(speech.date)}</span>
+              </div>
+              
+              <h2 class="article-title">${speech.title}</h2>
+              
+              <div style="margin-bottom: 12px;">
+                <strong style="color: #94a3b8; font-size: 14px; font-family: 'Inter', sans-serif;">
+                  ${speech.speakerName}
+                </strong>
+                <span style="color: #64748b; font-size: 14px; font-family: 'Inter', sans-serif;"> • ${speech.venue}</span>
+              </div>
+              
+              <p class="article-summary">${speech.summary}</p>
+            </div>
+            
+            <div class="action-buttons">
+              <button class="action-btn ${likedSpeeches.includes(speech.id) ? 'active-like' : ''}" 
+                      onclick="toggleLikeSpeech('${speech.id}')" title="Like this speech">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="${likedSpeeches.includes(speech.id) ? '#fb923c' : 'none'}" stroke="${likedSpeeches.includes(speech.id) ? '#fb923c' : '#94a3b8'}" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </button>
+              
+              <button class="action-btn ${savedSpeeches.includes(speech.id) ? 'active-save' : ''}" 
+                      onclick="toggleSaveSpeech('${speech.id}')" title="Save for later">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${savedSpeeches.includes(speech.id) ? '#60a5fa' : '#94a3b8'}" stroke-width="2">
+                  <path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                  ${savedSpeeches.includes(speech.id) ? '<path d="m9 10 2 2 4-4"></path>' : '<line x1="12" y1="7" x2="12" y2="13"></line><line x1="9" y1="10" x2="15" y2="10"></line>'}
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="speech-excerpt">
+            "${speech.excerpt}"
+          </div>
+
+          <div class="key-points">
+            <div class="key-points-title">KEY TOPICS</div>
+            <ul>
+              ${speech.keyTopics.map(topic => `<li>${topic}</li>`).join('')}
+            </ul>
+          </div>
+
+          <button class="expand-btn" onclick="toggleExpandSpeech('${speech.id}')">
+            <span>Academic Context & Analysis</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron-sp-${speech.id}">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          
+          <div class="context-box" id="context-sp-${speech.id}">
+            <div class="context-section">
+              <div class="context-title academic">ACADEMIC CONTEXT</div>
+              <p class="context-text">${speech.academicContext}</p>
+            </div>
+          </div>
+
+          <a href="${speech.url}" target="_blank" rel="noopener noreferrer" class="read-link">
+            View full speech
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      `).join('');
+    }
+
+    // Render podcasts
+    function renderPodcasts() {
+      const container = document.getElementById('podcastsContainer');
+      
+      let filtered = podcasts.filter(podcast => {
+        if (showSavedPodcastsOnly && !savedPodcasts.includes(podcast.id)) return false;
+        if (selectedPodcastType === 'all') return true;
+        return podcast.category === selectedPodcastType;
+      });
+
+      // Sort by date (most recent first)
+      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.5" style="margin: 0 auto 20px;">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M12 16v5"></path>
+            </svg>
+            <h3>${showSavedPodcastsOnly ? 'No saved podcasts yet' : 'No podcasts found'}</h3>
+            <p>${showSavedPodcastsOnly ? 'Save podcast episodes you find interesting for easy access' : 'Try selecting a different category or fetch new content'}</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(podcast => `
+        <div class="article-card">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="podcast-badge">${podcast.category}</span>
+                <span class="duration-badge">${podcast.duration}</span>
+                <span class="time-stamp">${formatTime(podcast.date)}</span>
+              </div>
+              
+              <h2 class="article-title">${podcast.title}</h2>
+              
+              <div style="margin-bottom: 12px;">
+                <strong style="color: #94a3b8; font-size: 14px; font-family: 'Inter', sans-serif;">
+                  ${podcast.show}
+                </strong>
+                <span style="color: #64748b; font-size: 14px; font-family: 'Inter', sans-serif;"> • Hosted by ${podcast.hosts}</span>
+              </div>
+              
+              <p class="article-summary">${podcast.description}</p>
+            </div>
+            
+            <div class="action-buttons">
+              <button class="action-btn ${likedPodcasts.includes(podcast.id) ? 'active-like' : ''}" 
+                      onclick="toggleLikePodcast('${podcast.id}')" title="Like this podcast">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="${likedPodcasts.includes(podcast.id) ? '#fb923c' : 'none'}" stroke="${likedPodcasts.includes(podcast.id) ? '#fb923c' : '#94a3b8'}" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </button>
+              
+              <button class="action-btn ${savedPodcasts.includes(podcast.id) ? 'active-save' : ''}" 
+                      onclick="toggleSavePodcast('${podcast.id}')" title="Save for later">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${savedPodcasts.includes(podcast.id) ? '#60a5fa' : '#94a3b8'}" stroke-width="2">
+                  <path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                  ${savedPodcasts.includes(podcast.id) ? '<path d="m9 10 2 2 4-4"></path>' : '<line x1="12" y1="7" x2="12" y2="13"></line><line x1="9" y1="10" x2="15" y2="10"></line>'}
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="guest-info">
+            <div class="guest-name">${podcast.guest}</div>
+            <div class="guest-title">${podcast.guestTitle}</div>
+          </div>
+
+          <div class="key-points">
+            <div class="key-points-title">KEY TOPICS DISCUSSED</div>
+            <ul>
+              ${podcast.keyTopics.map(topic => `<li>${topic}</li>`).join('')}
+            </ul>
+          </div>
+
+          <button class="expand-btn" onclick="toggleExpandPodcast('${podcast.id}')">
+            <span>Academic Context & Background</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="chevron-pod-${podcast.id}">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          
+          <div class="context-box" id="context-pod-${podcast.id}">
+            <div class="context-section">
+              <div class="context-title academic">ACADEMIC CONTEXT</div>
+              <p class="context-text">${podcast.academicContext}</p>
+            </div>
+          </div>
+
+          <a href="${podcast.url}" target="_blank" rel="noopener noreferrer" class="read-link">
+            Listen to episode
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      `).join('');
+    }
+
+    // Toggle like
+    function toggleLike(articleId, topic) {
+      if (likedArticles.includes(articleId)) {
+        likedArticles = likedArticles.filter(id => id !== articleId);
+        userInterests[topic] = Math.max(0, (userInterests[topic] || 0) - 1);
+      } else {
+        likedArticles.push(articleId);
+        userInterests[topic] = (userInterests[topic] || 0) + 1;
+      }
+      saveData();
+      updateInterests();
+      renderArticles();
+    }
+
+    // Toggle like speech
+    function toggleLikeSpeech(speechId) {
+      if (likedSpeeches.includes(speechId)) {
+        likedSpeeches = likedSpeeches.filter(id => id !== speechId);
+      } else {
+        likedSpeeches.push(speechId);
+      }
+      saveData();
+      renderSpeeches();
+    }
+
+    // Toggle like podcast
+    function toggleLikePodcast(podcastId) {
+      if (likedPodcasts.includes(podcastId)) {
+        likedPodcasts = likedPodcasts.filter(id => id !== podcastId);
+      } else {
+        likedPodcasts.push(podcastId);
+      }
+      saveData();
+      renderPodcasts();
+    }
+
+    // Toggle save
+    function toggleSave(articleId) {
+      if (savedArticles.includes(articleId)) {
+        savedArticles = savedArticles.filter(id => id !== articleId);
+      } else {
+        savedArticles.push(articleId);
+      }
+      saveData();
+      updateSavedCount();
+      renderArticles();
+    }
+
+    // Toggle save speech
+    function toggleSaveSpeech(speechId) {
+      if (savedSpeeches.includes(speechId)) {
+        savedSpeeches = savedSpeeches.filter(id => id !== speechId);
+      } else {
+        savedSpeeches.push(speechId);
+      }
+      saveData();
+      updateSavedCount();
+      renderSpeeches();
+    }
+
+    // Toggle save podcast
+    function toggleSavePodcast(podcastId) {
+      if (savedPodcasts.includes(podcastId)) {
+        savedPodcasts = savedPodcasts.filter(id => id !== podcastId);
+      } else {
+        savedPodcasts.push(podcastId);
+      }
+      saveData();
+      updateSavedCount();
+      renderPodcasts();
+    }
+
+    // Toggle expand context
+    function toggleExpand(articleId) {
+      const contextBox = document.getElementById(`context-${articleId}`);
+      contextBox.classList.toggle('expanded');
+      
+      const chevron = document.querySelector(`.chevron-${articleId}`);
+      if (contextBox.classList.contains('expanded')) {
+        chevron.innerHTML = '<polyline points="18 15 12 9 6 15"></polyline>';
+      } else {
+        chevron.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>';
+      }
+    }
+
+    // Toggle expand speech context
+    function toggleExpandSpeech(speechId) {
+      const contextBox = document.getElementById(`context-sp-${speechId}`);
+      contextBox.classList.toggle('expanded');
+      
+      const chevron = document.querySelector(`.chevron-sp-${speechId}`);
+      if (contextBox.classList.contains('expanded')) {
+        chevron.innerHTML = '<polyline points="18 15 12 9 6 15"></polyline>';
+      } else {
+        chevron.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>';
+      }
+    }
+
+    // Toggle expand podcast context
+    function toggleExpandPodcast(podcastId) {
+      const contextBox = document.getElementById(`context-pod-${podcastId}`);
+      contextBox.classList.toggle('expanded');
+      
+      const chevron = document.querySelector(`.chevron-pod-${podcastId}`);
+      if (contextBox.classList.contains('expanded')) {
+        chevron.innerHTML = '<polyline points="18 15 12 9 6 15"></polyline>';
+      } else {
+        chevron.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>';
+      }
+    }
+
+    // Update saved count
+    function updateSavedCount() {
+      document.getElementById('savedCount').textContent = savedArticles.length;
+      document.getElementById('savedSpeechesCount').textContent = savedSpeeches.length;
+      document.getElementById('savedPodcastsCount').textContent = savedPodcasts.length;
+    }
+
+    // Update interests display
+    function updateInterests() {
+      const sorted = Object.entries(userInterests).sort((a, b) => b[1] - a[1]);
+      const top3 = sorted.slice(0, 3).map(([topic]) => topic);
+      
+      const interestsBox = document.getElementById('interestsBox');
+      const interestTags = document.getElementById('interestTags');
+      
+      if (top3.length > 0) {
+        interestsBox.classList.remove('hidden');
+        interestTags.innerHTML = top3.map(topic => 
+          `<div class="interest-tag">⭐ ${topic}</div>`
+        ).join('');
+      } else {
+        interestsBox.classList.add('hidden');
+      }
+    }
+
+    // Fetch news
+    document.getElementById('fetchBtn').addEventListener('click', function() {
+      const btn = this;
+      btn.disabled = true;
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spinning"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg> Loading...';
+      
+      setTimeout(() => {
+        articles = generateArticles();
+        speeches = generateSpeeches();
+        podcasts = generatePodcasts();
+        renderArticles();
+        renderSpeeches();
+        renderPodcasts();
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg> Fetch Latest News';
+      }, 1500);
+    });
+
+    // Topic filters
+    document.querySelectorAll('.filter-btn[data-topic]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn[data-topic]').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        selectedTopic = this.dataset.topic;
+        renderArticles();
+      });
+    });
+
+    // Saved filter
+    document.getElementById('savedBtn').addEventListener('click', function() {
+      showSavedOnly = !showSavedOnly;
+      this.classList.toggle('active');
+      renderArticles();
+    });
+
+    // Saved speeches filter
+    document.getElementById('savedSpeechesBtn').addEventListener('click', function() {
+      showSavedSpeechesOnly = !showSavedSpeechesOnly;
+      this.classList.toggle('active');
+      renderSpeeches();
+    });
+
+    // View tabs
+    document.querySelectorAll('.view-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        currentView = this.dataset.view;
+        
+        // Update tab active states
+        document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Show/hide appropriate content
+        if (currentView === 'articles') {
+          document.getElementById('articlesContainer').classList.remove('hidden');
+          document.getElementById('speechesContainer').classList.add('hidden');
+          document.getElementById('podcastsContainer').classList.add('hidden');
+          document.getElementById('articlesFilters').classList.remove('hidden');
+          document.getElementById('speechesFilters').classList.add('hidden');
+          document.getElementById('podcastsFilters').classList.add('hidden');
+        } else if (currentView === 'speeches') {
+          document.getElementById('articlesContainer').classList.add('hidden');
+          document.getElementById('speechesContainer').classList.remove('hidden');
+          document.getElementById('podcastsContainer').classList.add('hidden');
+          document.getElementById('articlesFilters').classList.add('hidden');
+          document.getElementById('speechesFilters').classList.remove('hidden');
+          document.getElementById('podcastsFilters').classList.add('hidden');
+        } else {
+          document.getElementById('articlesContainer').classList.add('hidden');
+          document.getElementById('speechesContainer').classList.add('hidden');
+          document.getElementById('podcastsContainer').classList.remove('hidden');
+          document.getElementById('articlesFilters').classList.add('hidden');
+          document.getElementById('speechesFilters').classList.add('hidden');
+          document.getElementById('podcastsFilters').classList.remove('hidden');
+        }
+      });
+    });
+
+    // Speech speaker filters
+    document.querySelectorAll('.filter-btn[data-speaker]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn[data-speaker]').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        selectedSpeaker = this.dataset.speaker;
+        renderSpeeches();
+      });
+    });
+
+    // Podcast category filters
+    document.querySelectorAll('.filter-btn[data-podcast]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn[data-podcast]').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        selectedPodcastType = this.dataset.podcast;
+        renderPodcasts();
+      });
+    });
+
+    // Saved podcasts filter
+    document.getElementById('savedPodcastsBtn').addEventListener('click', function() {
+      showSavedPodcastsOnly = !showSavedPodcastsOnly;
+      this.classList.toggle('active');
+      renderPodcasts();
+    });
+
+    // Initialize
+    loadData();
+  </script>
+</body>
+</html>
